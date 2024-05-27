@@ -17,8 +17,8 @@ public class Dev {
     public ApplicationRunner init (MemberService memberService){
         return args -> {
             memberService.signup("admin", "admin", "admin","admin@test.com");
-            memberService.signup("user1", "user1", "user1","admin@test.com");
-            memberService.signup("user2","user2", "user2","admin@test.com");
+            memberService.signup("user1", "user1", "user1","user1@test.com");
+            memberService.signup("user2","user2", "user2","user2@test.com");
         };
     }
 }
