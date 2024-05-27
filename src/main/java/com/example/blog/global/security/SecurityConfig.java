@@ -25,6 +25,11 @@ public class SecurityConfig {
                         formLogin -> formLogin
                                 .loginPage("/member/login")
                 )
+                .oauth2Login(
+                        oauth2Login -> oauth2Login
+                                .loginPage("/member/login")
+                )
+
                 .logout(
                         logout -> logout
                                 .logoutUrl("/member/logout")
@@ -32,6 +37,7 @@ public class SecurityConfig {
         ;
         return http.build();
     }
+
 
     @Bean
     public PasswordEncoder passwordEncoder() {
