@@ -5,9 +5,7 @@ import com.example.blog.domain.post.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,6 +16,7 @@ public class PostController {
     private final PostService postService;
 
     @GetMapping("/list")
+
     public String list(Model model) {
         List<Post> postList = postService.getList();
 
@@ -33,5 +32,17 @@ public class PostController {
         model.addAttribute("post", p);
 
         return "post/detail";
+    }
+
+    @GetMapping("/create")
+    public String create() {
+        return "post/create_form";
+    }
+
+    @PostMapping("/create")
+    public String create(@RequestParam("title") String title, @RequestParam("content") String content){
+        postService.create(title, content);
+
+        return "redirect:/post/list";
     }
 }
