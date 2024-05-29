@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -16,7 +17,6 @@ public class PostController {
     private final PostService postService;
 
     @GetMapping("/list")
-
     public String list(Model model) {
         List<Post> postList = postService.getList();
 
@@ -25,14 +25,14 @@ public class PostController {
         return "post/list";
     }
 
-    @GetMapping("/detail/{id}")
-    public String detail(Model model, @PathVariable("id") Long id) {
-        Post p = postService.getPost(id);
-
-        model.addAttribute("post", p);
-
-        return "post/detail";
-    }
+//    @GetMapping("/create")
+//    @ResponseBody
+//    public String create() {
+//        return """
+//                <div>게시글 등록</div>
+//                <h1>안녕</h1>
+//                """.stripIndent();
+//    }
 
     @GetMapping("/create")
     public String create() {
@@ -40,8 +40,8 @@ public class PostController {
     }
 
     @PostMapping("/create")
-    public String create(@RequestParam("title") String title, @RequestParam("content") String content){
-        postService.create(title, content);
+    public String create(@RequestParam("title") String title, @RequestParam("content") String content, @RequestParam("thumbnail") MultipartFile thumbnail) {
+        postService.create(title, content, thumbnail);
 
         return "redirect:/post/list";
     }
